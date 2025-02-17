@@ -32,7 +32,7 @@ export function Navigation() {
                                     { name: "Palanchi", path: "/palanchi" },
                                     { name: "Grass Cutters", path: "/grass-cutters" }
                                 ].map((item) => (
-                                    <li key={item.name} className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                                    <li key={item.name} className="px-4 py-2 hover:bg-gray-200 cursor-pointer-h">
                                         <NavLink
                                             to={item.path}
                                             className="block w-full h-full"
