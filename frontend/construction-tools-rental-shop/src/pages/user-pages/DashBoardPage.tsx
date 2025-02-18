@@ -1,4 +1,4 @@
-import { DrillPage } from "./subPage/DrillPage.tsx";
+import { DrillPage } from "../subPage/DrillPage.tsx";
 
 export function DashBoardPage() {
     return (

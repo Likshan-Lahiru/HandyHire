@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Menu, X, ChevronDown, ShoppingCart, Heart, UserRound, Search } from "lucide-react";
+import {Menu, X, ChevronDown, ShoppingCart, Heart,  Search} from "lucide-react";
 import { NavLink } from "react-router";
+import {SignedIn, SignedOut, UserButton} from "@clerk/clerk-react";
 
 export function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,20 +18,20 @@ export function Navigation() {
                         onClick={() => setIsOpen(!isOpen)}
                         className="flex items-center space-x-2 text-lg font-semibold"
                     >
-                        <Menu className="w-6 h-6 cursor-pointer" />
+                        <Menu className="w-6 h-6 cursor-pointer"/>
                         <span>BROWSE CATEGORIES</span>
-                        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}/>
                     </button>
 
                     {isOpen && (
                         <div className="absolute left-0 mt-2 w-64 bg-white text-black shadow-lg rounded-md">
                             <ul className="py-2">
                                 {[
-                                    { name: "Grinder", path: "/grinder" },
-                                    { name: "Drill", path: "/drill" },
-                                    { name: "Ladder", path: "/ladder" },
-                                    { name: "Palanchi", path: "/palanchi" },
-                                    { name: "Grass Cutters", path: "/grass-cutters" }
+                                    {name: "Grinder", path: "/grinder"},
+                                    {name: "Drill", path: "/drill"},
+                                    {name: "Ladder", path: "/ladder"},
+                                    {name: "Palanchi", path: "/palanchi"},
+                                    {name: "Grass Cutters", path: "/grass-cutters"}
                                 ].map((item) => (
                                     <li key={item.name} className="px-4 py-2 hover:bg-gray-200 cursor-pointer-h">
                                         <NavLink
@@ -52,16 +53,15 @@ export function Navigation() {
                     <NavLink to="/" className="hover:text-blue-500 transition duration-300">Home</NavLink>
                     <NavLink to="/tool" className="hover:text-blue-500 transition duration-300">Tools</NavLink>
                     <NavLink to="/toolRent" className="relative">
-                        <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300" />
-                        <span className="absolute -top-2 -right-2 bg-blue-500 text-xs text-white rounded-full px-1">0</span>
+                        <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300"/>
+                        <span
+                            className="absolute -top-2 -right-2 bg-blue-500 text-xs text-white rounded-full px-1">0</span>
                     </NavLink>
                     <NavLink to="/favourite">
-                        <Heart className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300" />
+                        <Heart className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300"/>
                     </NavLink>
-                    <NavLink to="/profile">
-                        <UserRound className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300" />
-                    </NavLink>
-                    <Search className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300" />
+                    <Search className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300"/>
+
                 </div>
 
 
@@ -69,8 +69,23 @@ export function Navigation() {
                     className="md:hidden focus:outline-none"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
-                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    {mobileMenuOpen ? <X className="w-6 h-6"/> : <Menu className="w-6 h-6"/>}
                 </button>
+
+                <div className="flex justify-center gap-x-8 items-center">
+
+                    <div className="flex gap-x-4 items-center">
+                        <SignedIn>
+                            <UserButton/>
+                        </SignedIn>
+                        <SignedOut>
+                            <NavLink to={"/sign-in"}>Sign In</NavLink>
+
+                                <NavLink className="text-blue-600 hover:text-white-500 transition duration-300" to={"/sign-up"}>Sign Up</NavLink>
+
+                        </SignedOut>
+                    </div>
+                </div>
             </nav>
 
 
