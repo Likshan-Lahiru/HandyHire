@@ -1,18 +1,23 @@
-import { useState } from "react";
+import {useContext, useState} from "react";
 import {Menu, X, ChevronDown, ShoppingCart, Heart,  Search} from "lucide-react";
 import { NavLink } from "react-router";
 import {SignedIn, SignedOut, UserButton} from "@clerk/clerk-react";
+import {UserContext} from "./ToolCard.tsx";
 
-export function Navigation() {
+export function NavigationBar() {
+
     const [isOpen, setIsOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeTab, setActiveTab] = useState("menu");
+    const cartItem = useContext(UserContext);
+
+
+
+
 
     return (
         <header className="sticky top-0 w-full bg-black text-white shadow-md z-50">
             <nav className="flex items-center justify-between px-6 py-4">
-
-
                 <div className="relative hidden md:block">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
@@ -55,7 +60,7 @@ export function Navigation() {
                     <NavLink to="/toolRent" className="relative">
                         <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300"/>
                         <span
-                            className="absolute -top-2 -right-2 bg-blue-500 text-xs text-white rounded-full px-1">0</span>
+                            className="absolute -top-2 -right-2 bg-blue-500 text-xs text-white rounded-full px-1">{cartItem}</span>
                     </NavLink>
                     <NavLink to="/favourite">
                         <Heart className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300"/>
@@ -63,8 +68,6 @@ export function Navigation() {
                     <Search className="w-6 h-6 cursor-pointer hover:text-blue-500 transition duration-300"/>
 
                 </div>
-
-
                 <button
                     className="md:hidden focus:outline-none"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

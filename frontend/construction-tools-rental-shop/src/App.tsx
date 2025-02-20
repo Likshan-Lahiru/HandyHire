@@ -7,11 +7,9 @@ import { FavouritePage } from "./pages/user-pages/favouritePage.tsx";
 import { DrillPage } from "./pages/subPage/DrillPage.tsx";
 import { GrinderPage } from "./pages/subPage/GrinderPage.tsx";
 import { LaderPage } from "./pages/subPage/LaderPage.tsx";
-import { PalachiPage } from "./pages/subPage/PalachiPage.tsx";
+import { PalanchiPage } from "./pages/subPage/PalanchiPage.tsx";
 import { GrassCutter } from "./pages/subPage/GrassCutter.tsx";
 import ToolRentCartPage from "./pages/user-pages/ToolRentPage.tsx";
-
-
 import { CartProvider } from "./pages/subPage/context.tsx";
 import {SignInPage} from "./pages/SignInPage.tsx";
 import {SignUpPage} from "./pages/SignUpPage.tsx";
@@ -31,14 +29,15 @@ function App() {
         {
             element: <RootLayOut />,
             children: [
-                { path: '/', element: <DashBoardPage /> },
+                {
+                    path: '/', element: <DashBoardPage /> },
                 { path: '/tool', element: <ToolPage /> },
                 { path: '/toolRent', element: <ToolRentCartPage /> },
                 { path: '/favourite', element: <FavouritePage /> },
                 { path: '/grinder', element: <GrinderPage /> },
                 { path: '/drill', element: <DrillPage /> },
                 { path: '/ladder', element: <LaderPage /> },
-                { path: '/palanchi', element: <PalachiPage /> },
+                { path: '/palanchi', element: <PalanchiPage /> },
                 { path: '/grass-cutters', element: <GrassCutter /> },
 
             ]
@@ -47,8 +46,6 @@ function App() {
             element: <AdminLayout />,
             children: [
                 { path: '/admin/admin-dashboard', element: <AdminPage /> },
-
-
             ]
         },
         {

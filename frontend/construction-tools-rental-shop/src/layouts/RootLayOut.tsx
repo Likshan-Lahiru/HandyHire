@@ -1,10 +1,10 @@
-import {Navigation} from "../components/Navigation.tsx";
+import {NavigationBar} from "../components/NavigationBar.tsx";
 import {Outlet} from "react-router";
 
 export function RootLayOut() {
     return (
         <>
-            <Navigation />
+            <NavigationBar />
             <Outlet></Outlet>
         </>
     );

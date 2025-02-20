@@ -1,7 +1,7 @@
-import {useNavigate} from "react-router";
+import {Outlet, useNavigate} from "react-router";
 import {useUser} from "@clerk/clerk-react";
 import {useEffect} from "react";
-import {AdminPage} from "../pages/Admin-pages/AdminPage.tsx";
+import {NavigationBar} from "../components/NavigationBar.tsx";
 
 export function AdminLayout() {
     const { isLoaded, isSignedIn, user } = useUser();
@@ -23,7 +23,8 @@ export function AdminLayout() {
     }, [isLoaded, isSignedIn, navigate, user]);
     return (
         <>
-        <AdminPage />
+            <NavigationBar />
+            <Outlet></Outlet>
         </>
     );
 }
