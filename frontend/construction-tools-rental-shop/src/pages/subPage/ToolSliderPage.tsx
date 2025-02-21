@@ -1,4 +1,4 @@
-import {ToolCard} from "../../components/ToolCard.tsx";
+
 import {ToolCardDeco} from "../../components/ToolCardDeco.tsx";
 
 
@@ -18,11 +18,11 @@ const images = [
 ];
 
 const tools = Array.from({length: 20}, (_, index) => ({
-    image: images[index % images.length],
+    picture: images[index % images.length],
     name: `Tool ${index + 1}`,
     description: "High-quality construction tool",
-    price: Math.floor(Math.random() * 500) + 100,
-    stock: Math.floor(Math.random() * 10) + 1,
+    rentPricePerDay: Math.floor(Math.random() * 500) + 100,
+    remainingCount: Math.floor(Math.random() * 10) + 1,
 }));
 
 export default function ToolSliderPage() {

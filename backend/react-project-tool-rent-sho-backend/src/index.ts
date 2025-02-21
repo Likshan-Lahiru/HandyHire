@@ -11,7 +11,15 @@ const PORT = process.env.PORT || 8000;
 
 
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:5173", // Allow only this frontend
+        methods: "GET,POST,PUT,DELETE", // Allowed request methods
+        allowedHeaders: "Content-Type,Authorization", // Allowed headers
+        credentials: true, // Allow cookies & credentials
+    })
+);
+
 
 
 app.use("/api/tools", toolRoutes);

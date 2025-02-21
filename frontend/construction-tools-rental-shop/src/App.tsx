@@ -1,5 +1,7 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { Provider } from "react-redux";
+
 import { RootLayOut } from "./layouts/RootLayOut.tsx";
 import { DashBoardPage } from "./pages/user-pages/DashBoardPage.tsx";
 import { ToolPage } from "./pages/user-pages/ToolPage.tsx";
@@ -11,17 +13,17 @@ import { PalanchiPage } from "./pages/subPage/PalanchiPage.tsx";
 import { GrassCutter } from "./pages/subPage/GrassCutter.tsx";
 import ToolRentCartPage from "./pages/user-pages/ToolRentPage.tsx";
 import { CartProvider } from "./pages/subPage/context.tsx";
-import {SignInPage} from "./pages/SignInPage.tsx";
-import {SignUpPage} from "./pages/SignUpPage.tsx";
-import {ClerkProvider} from "@clerk/clerk-react";
-import {AdminLayout} from "./layouts/AdminLayout.tsx";
-import {AdminPage} from "./pages/Admin-pages/AdminPage.tsx";
+import { SignInPage } from "./pages/SignInPage.tsx";
+import { SignUpPage } from "./pages/SignUpPage.tsx";
+import { ClerkProvider } from "@clerk/clerk-react";
+import { AdminLayout } from "./layouts/AdminLayout.tsx";
+import { AdminPage } from "./pages/Admin-pages/AdminPage.tsx";
+import {store} from "./store/store.ts";
 
-
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
-    throw new Error("Missing Publishable Key")
+    throw new Error("Missing Publishable Key");
 }
 
 function App() {
@@ -29,8 +31,7 @@ function App() {
         {
             element: <RootLayOut />,
             children: [
-                {
-                    path: '/', element: <DashBoardPage /> },
+                { path: '/', element: <DashBoardPage /> },
                 { path: '/tool', element: <ToolPage /> },
                 { path: '/toolRent', element: <ToolRentCartPage /> },
                 { path: '/favourite', element: <FavouritePage /> },
@@ -39,10 +40,9 @@ function App() {
                 { path: '/ladder', element: <LaderPage /> },
                 { path: '/palanchi', element: <PalanchiPage /> },
                 { path: '/grass-cutters', element: <GrassCutter /> },
-
             ]
-        }
-        ,{
+        },
+        {
             element: <AdminLayout />,
             children: [
                 { path: '/admin/admin-dashboard', element: <AdminPage /> },
@@ -59,12 +59,13 @@ function App() {
     ]);
 
     return (
-        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-            <CartProvider>
-                <RouterProvider router={routes} />
-            </CartProvider>
-        </ClerkProvider>
-
+        <Provider store={store}>
+            <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+                <CartProvider>
+                    <RouterProvider router={routes} />
+                </CartProvider>
+            </ClerkProvider>
+        </Provider>
     );
 }
 

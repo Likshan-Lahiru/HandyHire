@@ -1,39 +1,29 @@
-import {ToolCard} from "../../components/ToolCard.tsx";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+import { ToolCard } from "../../components/ToolCard";
+import { getTools } from "../../reducers/toolReducer";
+import ToolModel from "../../model/ToolModel";
 
 export function DrillPage() {
-    const images = [
-        "https://i.ibb.co/Q7443jp0/pngwing-com.png",
-        "https://i.ibb.co/VcJ8HrF3/pngwing-com-1.png",
-        "https://i.ibb.co/7xQsL7dR/pngwing-com-3.png",
-        "https://i.ibb.co/WWBfkBRL/pngwing-com-4.png",
-        "https://i.ibb.co/rGs7B7mN/pngwing-com-8.png",
-        "https://i.ibb.co/Q7443jp0/pngwing-com.png",
-        "https://i.ibb.co/KcJFvBXt/pngwing-com-7.png",
-        "https://i.ibb.co/5gjCgbgh/pngwing-com-6.png",
-        "https://i.ibb.co/1G8HyC1K/pngwing-com-5.png",
-        "https://i.ibb.co/Rpxrqmc9/pngwing-com-9.png",
-    ];
+    const dispatch = useDispatch<AppDispatch>();
+    const tools = useSelector((state: RootState) => state.tool);
 
-    const tools = Array.from({length: 20}, (_, index) => ({
-        image: images[index % images.length],
-        name: `Tool ${index + 1}`,
-        description: "High-quality construction tool",
-        price: Math.floor(Math.random() * 500) + 100,
-        stock: Math.floor(Math.random() * 10) + 1,
-    }));
-
+    useEffect(() => {
+        if (!tools || tools.length === 0) {
+            dispatch(getTools());
+        }
+    }, [dispatch, tools]);
 
     return (
-
-        <div className="border-10 border-gray-300 rounded-lg p-10 grid grid-cols-4 gap-4 ">
-            {tools.map((tool, index) => (
-                <ToolCard key={index} {...tool} />
-            ))}
+        <div className="border-10 border-gray-300 rounded-lg w-full p-4 md:p-6 lg:p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {tools && tools.length > 0 ? (
+                tools.map((tool: ToolModel, index: number) => (
+                    <ToolCard key={index} {...tool} />
+                ))
+            ) : (
+                <p className="text-center col-span-full">Loading tools...</p>
+            )}
         </div>
-
-
     );
 }
-
-

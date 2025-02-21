@@ -5,15 +5,15 @@ import {CartProvider, useCart} from "../subPage/context.tsx";
 
 export default function ToolRentCartPage() {
     const { cart, updateQuantity, removeItem } = useCart();
-    const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const subtotal = cart.reduce((acc, item) => acc + item.rentPricePerDay * item.quantity, 0);
 
     return (
-        <CartProvider>
+
             <div className="p-4 lg:p-16 max-w-6xl mx-auto">
                 <div className="bg-white shadow-lg rounded-lg p-4 md:p-6">
                     {cart.map((item) => (
                         <div key={item.id} className="flex items-center border-b py-4 gap-4">
-                            <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded"/>
+                            <img src={item.picture} alt={item.name} className="w-16 h-16 object-cover rounded"/>
                             <div className="flex-1">
                                 <p className="font-semibold">{item.name}</p>
                                 <p className="text-sm text-gray-500">Size: {item.description}</p>
@@ -33,7 +33,7 @@ export default function ToolRentCartPage() {
                                     +
                                 </button>
                             </div>
-                            <p className="w-16 text-right font-semibold">Rs: {item.price * item.quantity}</p>
+                            <p className="w-16 text-right font-semibold">Rs: {item.rentPricePerDay * item.quantity}</p>
                             <button
                                 onClick={() => removeItem(item.id)}
                                 className="text-red-500 hover:text-red-700"
@@ -52,7 +52,7 @@ export default function ToolRentCartPage() {
                     </div>
                 </div>
             </div>
-        </CartProvider>
+
 
     );
 }

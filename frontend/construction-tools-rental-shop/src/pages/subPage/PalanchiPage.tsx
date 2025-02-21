@@ -1,4 +1,4 @@
-import ToolSliderPage from "./ToolSliderPage.tsx";
+
 
 export function PalanchiPage() {
     return (

@@ -1,6 +1,7 @@
-export default  interface ToolModel {
-    image: string;
+export default interface ToolModel {
+    picture: string;
     name: string;
     description: string;
-    price: number;
+    rentPricePerDay: number;
+    remainingCount: number;
 }

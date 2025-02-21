@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 
 export const getTools = async (req: Request, res: Response) => {
     try {
+        console.log("calling get Api")
         const tools = await prisma.tool.findMany();
         res.json(tools);
     } catch (error) {
