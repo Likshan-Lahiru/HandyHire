@@ -1,7 +1,9 @@
 import {Outlet, useNavigate} from "react-router";
 import {useUser} from "@clerk/clerk-react";
 import {useEffect} from "react";
-import {NavigationBar} from "../components/NavigationBar.tsx";
+
+import AdminNavigation from "../components/AdminNavigation.tsx";
+
 
 export function AdminLayout() {
     const { isLoaded, isSignedIn, user } = useUser();
@@ -23,8 +25,16 @@ export function AdminLayout() {
     }, [isLoaded, isSignedIn, navigate, user]);
     return (
         <>
-            <NavigationBar />
-            <Outlet></Outlet>
+            <div className="min-h-screen bg-gray-100 flex">
+                <AdminNavigation/>
+                <div className="flex-1">
+                    <Outlet/>
+                </div>
+            </div>
+
+
         </>
     );
 }
+
+

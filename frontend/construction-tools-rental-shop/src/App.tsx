@@ -16,9 +16,16 @@ import { CartProvider } from "./pages/subPage/context.tsx";
 import { SignInPage } from "./pages/SignInPage.tsx";
 import { SignUpPage } from "./pages/SignUpPage.tsx";
 import { ClerkProvider } from "@clerk/clerk-react";
-import { AdminLayout } from "./layouts/AdminLayout.tsx";
+
 import { AdminPage } from "./pages/Admin-pages/AdminPage.tsx";
 import {store} from "./store/store.ts";
+
+import {ToolAdminPage} from "./pages/Admin-pages/ToolAdmin-page.tsx";
+import {AdminLayout} from "./layouts/AdminLayout.tsx";
+import {CategoryAdminPage} from "./pages/Admin-pages/Category-admin-page.tsx";
+import {OrderAdminPage} from "./pages/Admin-pages/order-admin-page.tsx";
+import {SettingAdminPage} from "./pages/Admin-pages/setting-admin-page.tsx";
+import {ReportAdminPage} from "./pages/Admin-pages/Report-admin-page.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -46,6 +53,11 @@ function App() {
             element: <AdminLayout />,
             children: [
                 { path: '/admin/admin-dashboard', element: <AdminPage /> },
+                { path: '/admin/tool', element: <ToolAdminPage /> },
+                { path: '/admin/category', element: <CategoryAdminPage /> },
+                { path: '/admin/order', element: <OrderAdminPage /> },
+                { path: '/admin/setting', element: <SettingAdminPage /> },
+                { path: '/admin/report', element: <ReportAdminPage /> },
             ]
         },
         {

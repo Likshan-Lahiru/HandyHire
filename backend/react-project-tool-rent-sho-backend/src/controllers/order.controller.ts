@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../config/database";
 
-// Create a new order
+
 export const createOrder = async (req: Request, res: Response) => {
     try {
         const order = await prisma.order.create({ data: req.body });
@@ -11,7 +11,7 @@ export const createOrder = async (req: Request, res: Response) => {
     }
 };
 
-// Get all orders
+
 export const getAllOrders = async (_req: Request, res: Response) => {
     try {
         const orders = await prisma.order.findMany();
