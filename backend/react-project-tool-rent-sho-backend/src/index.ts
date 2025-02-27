@@ -5,18 +5,27 @@ import categoryRoutes from "./routes/category.routes";
 import orderRoutes from "./routes/order.routes";
 import orderDetailsRoutes from "./routes/orderDetails.routes";
 import { connectDB } from "./config/database";
+import bodyParser from "body-parser";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
 
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+
+
 app.use(express.json());
 app.use(
     cors({
-        origin: "http://localhost:5173", // Allow only this frontend
-        methods: "GET,POST,PUT,DELETE", // Allowed request methods
-        allowedHeaders: "Content-Type,Authorization", // Allowed headers
-        credentials: true, // Allow cookies & credentials
+        origin: "http://localhost:5173",
+        methods: "GET,POST,PUT,DELETE",
+        allowedHeaders: "Content-Type,Authorization",
+        credentials: true,
     })
 );
 

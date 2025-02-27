@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
+import upload from "../config/multerconfig";
 
 const prisma = new PrismaClient();
 
@@ -18,7 +19,9 @@ export const getTools = async (req: Request, res: Response) => {
 
 export const createTool = async (req: Request, res: Response) => {
     try {
-        const { name, description, rentPricePerDay, remainingCount, category_id } = req.body;
+        console.log("calling createTool")
+        let { name, description, rentPricePerDay, remainingCount, category_id } = req.body;
+        console.log("calling createTool")
 
         let base64Image = "";
         if (req.file) {
@@ -29,6 +32,8 @@ export const createTool = async (req: Request, res: Response) => {
 
             fs.unlinkSync(req.file.path);
         }
+
+        category_id = "67b745ab221c6ec285b911e9"
 
 
         const tool = await prisma.tool.create({
@@ -48,33 +53,54 @@ export const createTool = async (req: Request, res: Response) => {
     }
 };
 
-export const getToolById = async (req: Request, res: Response) => {
+
+
+export const getToolById = (req: Request, res: Response) => {
     const { id } = req.params;
-    try {
-        const tool = await prisma.tool.findUnique({
-            where: { id },
-            include: { category: true, orderDetails: true }
+
+    prisma.tool.findUnique({
+        where: { id },
+        include: { category: true, orderDetails: true }
+    })
+        .then(tool => {
+            if (!tool) {
+                res.status(404).json({ error: "Tool not found" });
+            } else {
+                res.json(tool);
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: "Failed to fetch tool" });
         });
-        if (!tool) return res.status(404).json({ error: "Tool not found" });
-        res.json(tool);
-    } catch (error) {
-        res.status(500).json({ error: "Failed to fetch tool" });
-    }
 };
 
-
-
 export const updateTool = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    try {
-        const tool = await prisma.tool.update({
-            where: { id },
-            data: req.body
-        });
-        res.json(tool);
-    } catch (error) {
-        res.status(500).json({ error: "Failed to update tool" });
-    }
+    upload.single("picture")(req, res, async (err) => {
+        if (err) return res.status(400).json({ error: "File upload failed" });
+
+        console.log("Calling tool update API");
+
+
+        const { id } = req.params;
+        const { name, description, rentPricePerDay, remainingCount, category_id, picture } = req.body;
+        try {
+            const tool = await prisma.tool.update({
+                where: { id },
+                data: {
+                    name,
+                    description,
+                    rentPricePerDay: Number(rentPricePerDay),
+                    remainingCount: Number(remainingCount),
+                    category_id,
+
+                }
+            });
+            return res.json(tool);
+        } catch (error) {
+            console.error("Error updating tool:", error);
+            return res.status(500).json({ error: "Failed to update tool" });
+        }
+    });
 };
 
 export const deleteTool = async (req: Request, res: Response) => {
@@ -86,3 +112,4 @@ export const deleteTool = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Failed to delete tool" });
     }
 };
+
