@@ -18,6 +18,7 @@ const images = [
 ];
 
 const tools = Array.from({length: 20}, (_, index) => ({
+    id: index,
     picture: images[index % images.length],
     name: `Tool ${index + 1}`,
     description: "High-quality construction tool",

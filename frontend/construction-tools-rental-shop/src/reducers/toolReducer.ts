@@ -30,7 +30,7 @@ export const addTool = createAsyncThunk(
         try {
             const response = await api.post("/tools/create", newTool, {
                 headers: {
-                    "Content-Type": "multipart/form-data", // Important for file uploads
+                    "Content-Type": "multipart/form-data",
                 },
             });
             return response.data;

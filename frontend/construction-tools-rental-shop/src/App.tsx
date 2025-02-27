@@ -1,11 +1,9 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Provider } from "react-redux";
-
 import { RootLayOut } from "./layouts/RootLayOut.tsx";
 import { DashBoardPage } from "./pages/user-pages/DashBoardPage.tsx";
-import { ToolPage } from "./pages/user-pages/ToolPage.tsx";
-import { FavouritePage } from "./pages/user-pages/favouritePage.tsx";
+import { ToolPage } from "./pages/subPage/ToolPage.tsx";
 import { DrillPage } from "./pages/subPage/DrillPage.tsx";
 import { GrinderPage } from "./pages/subPage/GrinderPage.tsx";
 import { LaderPage } from "./pages/subPage/LaderPage.tsx";
@@ -16,16 +14,15 @@ import { CartProvider } from "./pages/subPage/context.tsx";
 import { SignInPage } from "./pages/SignInPage.tsx";
 import { SignUpPage } from "./pages/SignUpPage.tsx";
 import { ClerkProvider } from "@clerk/clerk-react";
-
 import { AdminPage } from "./pages/Admin-pages/AdminPage.tsx";
 import {store} from "./store/store.ts";
-
 import {ToolAdminPage} from "./pages/Admin-pages/ToolAdmin-page.tsx";
 import {AdminLayout} from "./layouts/AdminLayout.tsx";
 import {CategoryAdminPage} from "./pages/Admin-pages/Category-admin-page.tsx";
 import {OrderAdminPage} from "./pages/Admin-pages/order-admin-page.tsx";
 import {SettingAdminPage} from "./pages/Admin-pages/setting-admin-page.tsx";
 import {ReportAdminPage} from "./pages/Admin-pages/Report-admin-page.tsx";
+import {FavoritesGrid} from "./pages/user-pages/favouritePage.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -41,7 +38,7 @@ function App() {
                 { path: '/', element: <DashBoardPage /> },
                 { path: '/tool', element: <ToolPage /> },
                 { path: '/toolRent', element: <ToolRentCartPage /> },
-                { path: '/favourite', element: <FavouritePage /> },
+                { path: '/favourite', element: <FavoritesGrid /> },
                 { path: '/grinder', element: <GrinderPage /> },
                 { path: '/drill', element: <DrillPage /> },
                 { path: '/ladder', element: <LaderPage /> },

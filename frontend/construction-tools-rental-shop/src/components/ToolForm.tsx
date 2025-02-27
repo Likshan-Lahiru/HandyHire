@@ -44,14 +44,14 @@ const FormController = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Create FormData object for sending multipart/form-data
+
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.toolName);
         formDataToSend.append("rentPricePerDay", formData.rentPerDay);
         formDataToSend.append("remainingCount", formData.qtyOnHand);
         formDataToSend.append("description", formData.description);
         if (formData.picture) {
-            formDataToSend.append("picture", formData.picture); // Attach file
+            formDataToSend.append("picture", formData.picture);
         }
 
         try {
@@ -62,7 +62,6 @@ const FormController = () => {
                 autoClose: 3000,
             });
 
-            // Reset form
             setFormData({
                 toolName: "",
                 rentPerDay: "",
@@ -83,8 +82,6 @@ const FormController = () => {
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4 text-center">Add New Tool</h2>
-
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label htmlFor="toolName" className="block text-sm font-medium text-gray-700">
@@ -188,7 +185,7 @@ const FormController = () => {
                 </div>
             </form>
 
-            {/* Toast Notifications */}
+
             <ToastContainer />
         </div>
     );
