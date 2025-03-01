@@ -11,6 +11,7 @@ export const getTools = async (req: Request, res: Response) => {
     try {
         console.log("calling get Api")
         const tools = await prisma.tool.findMany();
+
         res.json(tools);
     } catch (error) {
         res.status(500).json({ error: "Failed to fetch tools" });
@@ -74,6 +75,34 @@ export const getToolById = (req: Request, res: Response) => {
         });
 };
 
+export const getToolByName = (req: Request, res: Response) => {
+    const { name } = req.params;
+    console.log("Print search tool name:", name);
+
+    prisma.tool.findFirst({
+        where: {
+            name: {
+                equals: name,
+                mode: "insensitive"
+            }
+        },
+        include: { category: true, orderDetails: true }
+    })
+        .then(tool => {
+            if (!tool) {
+                res.status(404).json({ error: "Tool not found" });
+            } else {
+                res.json(tool);
+            }
+        })
+        .catch(error => {
+            console.error("Database error:", error);
+            res.status(500).json({ error: "Failed to fetch tool" });
+        });
+};
+
+
+
 export const updateTool = async (req: Request, res: Response) => {
     upload.single("picture")(req, res, async (err) => {
         if (err) return res.status(400).json({ error: "File upload failed" });
@@ -113,3 +142,25 @@ export const deleteTool = async (req: Request, res: Response) => {
     }
 };
 
+export async function getStats(req: Request, res: Response) {
+    try {
+        const totalOrdersPrice = await prisma.order.aggregate({
+            _sum: { fullPrice: true },
+        });
+        const totalOrdersCount = await prisma.order.count();
+        const totalUserCount = await prisma.order.aggregate({
+            _count: { user_id: true },
+        });
+        const totalToolCount = await prisma.tool.count();
+
+        res.json({
+            totalOrdersPrice: totalOrdersPrice._sum.fullPrice || 0,
+            totalOrdersCount,
+            totalUserCount: totalUserCount._count.user_id,
+            totalToolCount,
+        });
+    } catch (error) {
+        console.error("Error fetching stats:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}

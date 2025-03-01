@@ -2,7 +2,7 @@ import {Outlet, useNavigate} from "react-router";
 import {useUser} from "@clerk/clerk-react";
 import {useEffect} from "react";
 
-import AdminNavigation from "../components/AdminNavigation.tsx";
+import AdminNavigation from "../components/admin-compnents/AdminNavigation.tsx";
 
 
 export function AdminLayout() {

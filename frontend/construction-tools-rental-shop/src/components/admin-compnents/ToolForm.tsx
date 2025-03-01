@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {AppDispatch} from "../store/store.ts";
-import {addTool} from "../reducers/toolReducer.ts";
+import {AppDispatch} from "../../store/store.ts";
+import {addTool} from "../../reducers/toolReducer.ts";
 
 const FormController = () => {
     const dispatch = useDispatch<AppDispatch>();

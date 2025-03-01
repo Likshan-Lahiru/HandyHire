@@ -19,10 +19,11 @@ import {store} from "./store/store.ts";
 import {ToolAdminPage} from "./pages/Admin-pages/ToolAdmin-page.tsx";
 import {AdminLayout} from "./layouts/AdminLayout.tsx";
 import {CategoryAdminPage} from "./pages/Admin-pages/Category-admin-page.tsx";
-import {OrderAdminPage} from "./pages/Admin-pages/order-admin-page.tsx";
+
 import {SettingAdminPage} from "./pages/Admin-pages/setting-admin-page.tsx";
 import {ReportAdminPage} from "./pages/Admin-pages/Report-admin-page.tsx";
 import {FavoritesGrid} from "./pages/user-pages/favouritePage.tsx";
+import OrderAdminPage from "./pages/Admin-pages/order-admin-page.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 

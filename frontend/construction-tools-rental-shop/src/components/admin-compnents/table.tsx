@@ -3,23 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { Pencil, Trash2 } from "lucide-react";
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField,} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, CircularProgress } from "@mui/material";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AppDispatch, RootState } from "../store/store.ts";
-import { deleteTool, getTools, updateTool } from "../reducers/toolReducer.ts";
+import { AppDispatch, RootState } from "../../store/store.ts";
+import { deleteTool, getTools, updateTool } from "../../reducers/toolReducer.ts";
 
 export default function DataTable() {
     const dispatch = useDispatch<AppDispatch>();
     const tools = useSelector((state: RootState) => state.tool);
 
+    const [loading, setLoading] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [selectedTool, setSelectedTool] = useState<any>(null);
 
     useEffect(() => {
-        dispatch(getTools());
+        dispatch(getTools()).then(() => setLoading(false));
     }, [dispatch]);
-
 
     const handleDelete = (id: string) => {
         if (window.confirm("Are you sure you want to delete this tool?")) {
@@ -34,18 +34,15 @@ export default function DataTable() {
         }
     };
 
-
     const handleRowClick = (tool: any) => {
         setSelectedTool(tool);
         setOpenModal(true);
     };
 
-
     const handleClose = () => {
         setOpenModal(false);
         setSelectedTool(null);
     };
-
 
     const handleUpdate = () => {
         if (selectedTool) {
@@ -119,10 +116,13 @@ export default function DataTable() {
         <>
             <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick={false} pauseOnHover draggable theme="light" transition={Bounce} />
 
-            <Paper sx={{ height: 600, width: "100%" }}>
-                <DataGrid rows={tools} columns={columns} pageSizeOptions={[10, 10]} checkboxSelection sx={{ border: 0 }} />
+            <Paper sx={{ height: 600, width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                {loading ? (
+                    <CircularProgress />
+                ) : (
+                    <DataGrid rows={tools} columns={columns} pageSizeOptions={[10, 10]} checkboxSelection sx={{ border: 0 }} />
+                )}
             </Paper>
-
 
             <Dialog open={openModal} onClose={handleClose} fullWidth maxWidth="sm">
                 <DialogTitle>Tool Details</DialogTitle>

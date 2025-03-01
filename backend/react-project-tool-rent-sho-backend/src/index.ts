@@ -7,6 +7,7 @@ import orderDetailsRoutes from "./routes/orderDetails.routes";
 import { connectDB } from "./config/database";
 import bodyParser from "body-parser";
 
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -35,6 +36,8 @@ app.use("/api/tools", toolRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/order-details", orderDetailsRoutes);
+app.use("/api/order-details", orderDetailsRoutes);
+
 
 
 const startServer = async () => {

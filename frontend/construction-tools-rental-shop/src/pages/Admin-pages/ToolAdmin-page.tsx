@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DataTable from "../../components/table.tsx";
-import ModalComponent from "../../components/Model.tsx";
+import DataTable from "../../components/admin-compnents/table.tsx";
+import ModalComponent from "../../components/admin-compnents/Model.tsx";
 
 export function ToolAdminPage() {
     const [searchTerm, setSearchTerm] = useState("");
